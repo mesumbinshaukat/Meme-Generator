@@ -39,7 +39,7 @@ export interface CaptionOptions {
 export interface MutationOptions {
     originalCaption: string;
     feedback?: string;
-    mutationType?: 'variation' | 'tone-shift' | 'format-change';
+    mutationType?: 'variation' | 'tone-shift' | 'format-change' | 'template-swap';
 }
 
 /**
@@ -191,6 +191,7 @@ export async function generateMutations(
         variation: 'Create variations with different wording but same humor',
         'tone-shift': 'Change the tone while keeping the core message',
         'format-change': 'Reformat (e.g., add emojis, change structure)',
+        'template-swap': 'Adapt the caption for a different meme template',
     };
 
     const systemPrompt = `You are evolving meme captions. Generate ${count} different mutations.

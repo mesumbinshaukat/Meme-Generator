@@ -81,7 +81,7 @@ export async function initDatabase(): Promise<Database> {
         saveDatabase();
     }
 
-    return db;
+    return db as Database;
 }
 
 /**

@@ -25,6 +25,7 @@ interface GeneratedMeme {
     imageUrl: string;
     caption: string;
     templateName: string;
+    memeIdea?: any;
 }
 
 interface Mutation {

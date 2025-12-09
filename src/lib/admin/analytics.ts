@@ -52,9 +52,10 @@ export async function getAnalyticsSummary(): Promise<AnalyticsSummary> {
     const generationEvents = db.analytics.filter((a) => a.event_type === 'meme_generated');
     const avgGenerationTime =
         generationEvents.length > 0
-            ? generationEvents.reduce((sum, e) => sum + (e.metadata?.generation_time || 0), 0) /
+            ? generationEvents.reduce((sum, e: any) => sum + (e.metadata?.generation_time || 0), 0) /
             generationEvents.length
             : 0;
+
 
     // Popular templates
     const templateCounts: Record<string, { name: string; count: number }> = {};
@@ -79,7 +80,7 @@ export async function getAnalyticsSummary(): Promise<AnalyticsSummary> {
             id: meme.id,
             caption: meme.caption,
             template: meme.template_id,
-            created_at: meme.created_at,
+            created_at: new Date(meme.created_at).toISOString(),
         }));
 
     // Error logs (from analytics events)
@@ -87,8 +88,8 @@ export async function getAnalyticsSummary(): Promise<AnalyticsSummary> {
         .filter((a) => a.event_type === 'error' || a.event_type === 'api_error')
         .slice(-20)
         .reverse()
-        .map((event) => ({
-            timestamp: event.created_at,
+        .map((event: any) => ({
+            timestamp: new Date(event.created_at).toISOString(),
             error: event.metadata?.error || 'Unknown error',
             context: event.metadata?.context || '',
         }));
